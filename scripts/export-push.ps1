@@ -14,7 +14,11 @@ $scratch = if ($env:SCRATCH_DIR) { $env:SCRATCH_DIR } else { Join-Path $env:USER
 $spool   = Join-Path $scratch 'token-dashboard-spool'
 $stamp   = Join-Path $scratch 'token-dashboard-lastpush'
 $log     = Join-Path $scratch 'token-dashboard-push.log'
-$inbox   = 'vps:~/Claude/Projects/_scratch/token-dashboard-inbox/'
+# $inbox is a path on the RECEIVING box (the VPS), not this one — it must match the VPS's
+# TOKEN_DASHBOARD_INBOX, which moved to gatorbyte-os/run on 2026-08-24 (QUEUE 2026-08-23-1830).
+# The old VPS path is a symlink to the new one until the cutover deletes Projects/_scratch,
+# so a box that has not pulled this change yet still lands in the swept directory.
+$inbox   = 'vps:~/Claude/gatorbyte-os/run/token-dashboard-inbox/'
 
 New-Item -ItemType Directory -Force $spool | Out-Null
 

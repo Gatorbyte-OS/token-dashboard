@@ -8,11 +8,19 @@ set -euo pipefail
 export TOKEN_DASHBOARD_BOX="${TOKEN_DASHBOARD_BOX:-LMF}"
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
+# SCRATCH is LOCAL to the sending box (spool, stamp, log) — it follows this box's own
+# SCRATCH_DIR and the fallback stays wherever this box keeps scratch.
 SCRATCH="${SCRATCH_DIR:-$HOME/Claude/Projects/_scratch}"
 SPOOL="$SCRATCH/token-dashboard-spool"
 STAMP="$SCRATCH/token-dashboard-lastpush"
 LOG="$SCRATCH/token-dashboard-push.log"
-INBOX="vps:~/Claude/Projects/_scratch/token-dashboard-inbox/"
+# INBOX is a path on the RECEIVING box and must match the VPS's TOKEN_DASHBOARD_INBOX,
+# which moved to gatorbyte-os/run on 2026-08-24 (QUEUE 2026-08-23-1830). The old location
+# is a symlink to the new one for exactly this reason — a sender that has not pulled yet
+# still lands in the swept directory instead of dropping exports somewhere nobody reads.
+# That symlink dies with Projects/_scratch at the cutover; this line is what has to be
+# live on every sending box before then.
+INBOX="vps:~/Claude/gatorbyte-os/run/token-dashboard-inbox/"
 
 mkdir -p "$SPOOL"
 
