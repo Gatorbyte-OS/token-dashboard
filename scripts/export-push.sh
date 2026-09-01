@@ -10,7 +10,7 @@ export TOKEN_DASHBOARD_BOX="${TOKEN_DASHBOARD_BOX:-LMF}"
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 # SCRATCH is LOCAL to the sending box (spool, stamp, log) — it follows this box's own
 # SCRATCH_DIR and the fallback stays wherever this box keeps scratch.
-SCRATCH="${SCRATCH_DIR:-$HOME/Claude/Projects/_scratch}"
+SCRATCH="${SCRATCH_DIR:-$(cd "$(dirname "$0")/../../.." && pwd)/_scratch}"
 SPOOL="$SCRATCH/token-dashboard-spool"
 STAMP="$SCRATCH/token-dashboard-lastpush"
 LOG="$SCRATCH/token-dashboard-push.log"

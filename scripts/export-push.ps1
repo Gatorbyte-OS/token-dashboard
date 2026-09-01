@@ -10,7 +10,10 @@ $ErrorActionPreference = 'Stop'
 $env:TOKEN_DASHBOARD_BOX = 'BMF'
 
 $repo    = Split-Path -Parent $PSScriptRoot
-$scratch = if ($env:SCRATCH_DIR) { $env:SCRATCH_DIR } else { Join-Path $env:USERPROFILE 'Documents\Claude\Projects\_scratch' }
+# Local to THIS box (spool/stamp/log), unlike $inbox below. Derived from the repo rather
+# than an absolute home path: the old 'Documents\Claude\Projects\_scratch' default outlived
+# the v0.5 move and kept BMF writing into the pre-migration tree.
+$scratch = if ($env:SCRATCH_DIR) { $env:SCRATCH_DIR } else { Join-Path (Split-Path -Parent (Split-Path -Parent $repo)) '_scratch' }
 $spool   = Join-Path $scratch 'token-dashboard-spool'
 $stamp   = Join-Path $scratch 'token-dashboard-lastpush'
 $log     = Join-Path $scratch 'token-dashboard-push.log'
