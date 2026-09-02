@@ -10,7 +10,10 @@ export TOKEN_DASHBOARD_BOX="${TOKEN_DASHBOARD_BOX:-LMF}"
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 # SCRATCH is LOCAL to the sending box (spool, stamp, log) — it follows this box's own
 # SCRATCH_DIR and the fallback stays wherever this box keeps scratch.
-SCRATCH="${SCRATCH_DIR:-$(cd "$(dirname "$0")/../../.." && pwd)/_scratch}"
+# Fallback leaf is 'run', not '_scratch' — 2026-09-02, same fix as export-push.ps1. 'run' is the
+# canonical scratch name on every box; '_scratch' here was minting a parallel directory nothing
+# else read. See QUEUE 2026-09-01-1417.
+SCRATCH="${SCRATCH_DIR:-$(cd "$(dirname "$0")/../../.." && pwd)/run}"
 SPOOL="$SCRATCH/token-dashboard-spool"
 STAMP="$SCRATCH/token-dashboard-lastpush"
 LOG="$SCRATCH/token-dashboard-push.log"
