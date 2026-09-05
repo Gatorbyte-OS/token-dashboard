@@ -11,11 +11,11 @@ $env:TOKEN_DASHBOARD_BOX = 'BMF'
 
 $repo    = Split-Path -Parent $PSScriptRoot
 # Local to THIS box (spool/stamp/log), unlike $inbox below. Derived from the repo rather
-# than an absolute home path: the old 'Documents\Claude\Projects\_scratch' default outlived
-# the v0.5 move and kept BMF writing into the pre-migration tree.
+# than an absolute home path: the old 'Documents\Claude\Projects\_scratch' default (oldpaths-ok)
+# outlived the v0.5 move and kept BMF writing into the pre-migration tree.
 # The fallback leaf is 'run', not '_scratch' — 2026-09-02. It said '_scratch' and this hook is
 # the only thing on either box that spelled it that way, so it silently minted a FOURTH scratch
-# dir (gatorbyte-os/_scratch) beside the canonical one while the env var named a fifth, dead
+# dir (gatorbyte-os/_scratch — oldpaths-ok) beside the canonical one while the env var named a fifth, dead
 # path. Every other consumer hardcodes 'run'; so does the VPS's SCRATCH_DIR and $inbox below.
 $scratch = if ($env:SCRATCH_DIR) { $env:SCRATCH_DIR } else { Join-Path (Split-Path -Parent (Split-Path -Parent $repo)) 'run' }
 $spool   = Join-Path $scratch 'token-dashboard-spool'

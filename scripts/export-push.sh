@@ -21,7 +21,7 @@ LOG="$SCRATCH/token-dashboard-push.log"
 # which moved to gatorbyte-os/run on 2026-08-24 (QUEUE 2026-08-23-1830). The old location
 # is a symlink to the new one for exactly this reason — a sender that has not pulled yet
 # still lands in the swept directory instead of dropping exports somewhere nobody reads.
-# That symlink dies with Projects/_scratch at the cutover; this line is what has to be
+# That symlink dies with Projects/_scratch (oldpaths-ok) at the cutover; this line is what has to be
 # live on every sending box before then.
 INBOX="vps:~/Claude/gatorbyte-os/run/token-dashboard-inbox/"
 
